@@ -92,6 +92,10 @@ module WickedPdfHelper
     # will prepend a http or default_protocol to a protocol relative URL
     # or when no protcol is set.
     def set_protocol(source)
+      if source[0, 4] == 'http'
+        return source
+      end
+
       protocol = WickedPdf.config[:default_protocol] || 'http'
       if source[0, 2] == '//'
         source = [protocol, ':', source].join
